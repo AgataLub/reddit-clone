@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import PostList from "./PostList";
-
 function App() {
   //States
   const [feed, setFeed] = useState([]);

@@ -10,6 +10,7 @@ export default function PostList({ posts }) {
             <p>
               {post.data.author} in {post.data.subreddit}
             </p>
+            <p>Permalink: {post.data.permalink}</p>
           </div>
         );
       })}
