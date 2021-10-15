@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import PostList from "./PostList";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  //States
+  const [feed, setFeed] = useState([]);
+
+  //Fetching data
+  async function getData() {
+    const response = await fetch("https://www.reddit.com/.json", {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Accept: "application/json",
+      },
+    });
+    const myJson = await response.json();
+    return myJson;
+  }
+  getData().then((myJson) => {
+    console.log(myJson.data.children);
+    setFeed(myJson.data.children);
+  });
+
+  //Return App
+  return <div>{feed.length !== 0 && <PostList posts={feed} />}</div>;
 }
 
 export default App;
