@@ -1,35 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import PostList from "./PostList";
 
 function App() {
+  //States
   const [feed, setFeed] = useState([]);
 
-  const getData = () => {
-    fetch("https://www.reddit.com/.json", {
+  //Fetching data
+  async function getData() {
+    const response = await fetch("https://www.reddit.com/.json", {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
         Accept: "application/json",
       },
-    })
-      .then((response) => {
-        console.log(response);
-        return response.json();
-      })
-      .then((myJson) => {
-        console.log(myJson);
-        setFeed(myJson);
-      });
-  };
+    });
+    const myJson = await response.json();
+    return myJson;
+  }
+  getData().then((myJson) => {
+    console.log(myJson.data.children);
+    setFeed(myJson.data.children);
+  });
 
-  useEffect(() => {
-    getData();
-  }, []);
-
-  return (
-    <div>
-      <h1>{feed.data.children[0].data.title}</h1>
-      <span>Text</span>
-    </div>
-  );
+  //Return App
+  return <div>{feed.length !== 0 && <PostList posts={feed} />}</div>;
 }
 
 export default App;
