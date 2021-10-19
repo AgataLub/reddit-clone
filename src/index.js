@@ -12,3 +12,10 @@ ReactDOM.render(
   </Router>,
   document.getElementById("root")
 );
+
+// create utils - putting the url together, fetching function, separate file with consts,
+// comment replies
+// showing the component
+// looks
+
+// ? function () vs react extends

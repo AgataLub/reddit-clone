@@ -1,7 +1,10 @@
+import { NavLink } from "react-router-dom";
+
 export default function PostList({ posts }) {
   return (
     <div className="MainFeed">
       {posts.map((post) => {
+        let permalink = post.data.permalink;
         return (
           <div key={post.id}>
             <a href="">
@@ -10,7 +13,16 @@ export default function PostList({ posts }) {
             <p>
               {post.data.author} in {post.data.subreddit}
             </p>
-            <p>Permalink: {post.data.permalink}</p>
+            <p>
+              <NavLink
+                to={{
+                  pathname: "/post",
+                  state: { title: { permalink } },
+                }}
+              >
+                Permalink: {post.data.permalink}
+              </NavLink>
+            </p>
           </div>
         );
       })}

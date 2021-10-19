@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PostList from "./PostList";
+
 function App() {
   //States
   const [feed, setFeed] = useState([]);
@@ -19,7 +20,6 @@ function App() {
     console.log(myJson.data.children);
     setFeed(myJson.data.children);
   });
-
   //Return App
   return <div>{feed.length !== 0 && <PostList posts={feed} />}</div>;
 }
