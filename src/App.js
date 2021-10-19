@@ -20,7 +20,6 @@ function App() {
     console.log(myJson.data.children);
     setFeed(myJson.data.children);
   });
-
   //Return App
   return <div>{feed.length !== 0 && <PostList posts={feed} />}</div>;
 }
