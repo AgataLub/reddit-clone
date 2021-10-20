@@ -14,8 +14,10 @@ ReactDOM.render(
 );
 
 // create utils - putting the url together, fetching function, separate file with consts,
-// comment replies
-// showing the component
 // looks
+// see more/see less button
+// fix empty wrote/said
+// text formatting
+// create keys
 
 // ? function () vs react extends

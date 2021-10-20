@@ -6,10 +6,8 @@ export default function PostList({ posts }) {
       {posts.map((post) => {
         let permalink = post.data.permalink;
         return (
-          <div key={post.id}>
-            <a href="">
-              <h1>{post.data.title}</h1>
-            </a>
+          <div className="SinglePost" key={post.id}>
+            <h1>{post.data.title}</h1>
             <p>
               {post.data.author} in {post.data.subreddit}
             </p>
@@ -20,7 +18,7 @@ export default function PostList({ posts }) {
                   state: { title: { permalink } },
                 }}
               >
-                Permalink: {post.data.permalink}
+                See the comments...
               </NavLink>
             </p>
           </div>
