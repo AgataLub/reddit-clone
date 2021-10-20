@@ -23,6 +23,7 @@ function Post() {
     const myJson = await response.json();
     return myJson;
   }
+  // setThread(getData());
   getData().then((myJson) => {
     console.log(myJson);
     setThread(myJson);
@@ -32,26 +33,31 @@ function Post() {
     console.log(id);
 
     if (singleReply === id) {
-      setSingleReply(null);
-    } else {
-      setSingleReply(id);
+      return setSingleReply(null);
     }
+    setSingleReply(id);
 
     // setComments((wasComment) => !wasComment);
   };
+
+  let title, author, subreddit, comments;
+  if (thread.length > 0) {
+    ({ title, author, subreddit } = thread[0].data.children[0].data);
+    comments = thread[1].data.children;
+  }
 
   //Return App
   return (
     <div>
       {thread.length !== 0 && (
         <div className="MainFeed">
-          <h1>{thread[0].data.children[0].data.title}</h1>
+          <h1>{title}</h1>
           <p>
-            {thread[0].data.children[0].data.author} in {thread[0].data.children[0].data.subreddit}
+            {author} in {subreddit}
           </p>
           <div>
             {console.log(thread[1].data.children)}
-            {thread[1].data.children.map((comment) => {
+            {comments.map((comment) => {
               console.log("comment");
               console.log(comment.data.replies);
               return (
@@ -68,7 +74,9 @@ function Post() {
                       See replies
                     </button>
                   )}
-                  {singleReply === comment.data.name && <ReplyBox replies={comment.data.replies} />}
+                  {singleReply === comment.data.name && (
+                    <ReplyBox replies={comment.data.replies} />
+                  )}
                 </div>
               );
             })}

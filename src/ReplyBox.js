@@ -1,11 +1,12 @@
 import React from "react";
 
-function ReplyBox(replies) {
+function ReplyBox(repliesPayload) {
   console.log("ReplyBox");
-  console.log(replies.replies.data.children);
+  console.log(repliesPayload.replies.data.children);
+  const replies = repliesPayload.replies.data.children;
   return (
     <div className="ReplyBox">
-      {replies.replies.data.children.map((reply) => {
+      {replies.map((reply) => {
         return (
           <p>
             <i>{reply.data.author}</i> wrote {reply.data.body}
