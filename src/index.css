@@ -20,6 +20,13 @@ a {
   color: #1f1c2c;
   background-color: #928dab;
   text-decoration: none;
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+a:hover {
+  background-color: #1f1c2c;
+  color: #928dab;
 }
 
 .MainFeed {

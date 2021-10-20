@@ -19,5 +19,6 @@ ReactDOM.render(
 // fix empty wrote/said
 // text formatting
 // create keys
+// useEffect
 
 // ? function () vs react extends
