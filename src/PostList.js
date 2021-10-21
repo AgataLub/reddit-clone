@@ -18,7 +18,7 @@ export default function PostList({ posts }) {
                   state: { title: { permalink } },
                 }}
               >
-                See the comments...
+                <button>See the comments...</button>
               </NavLink>
             </p>
           </div>

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PostList from "./PostList";
-import { redditURL } from "./utils/constants";
+import { redditURL } from "./utils/variables";
 import fetchData from "./utils/fetchData";
 
 function App() {
@@ -10,6 +10,11 @@ function App() {
   fetchData(redditURL).then((myJson) => {
     setFeed(myJson.data.children);
   });
+
+  //Change title of the page
+  useEffect(() => {
+    document.title = "Reddit Clone";
+  }, []);
   //Return App
   return <div>{feed.length !== 0 && <PostList posts={feed} />}</div>;
 }

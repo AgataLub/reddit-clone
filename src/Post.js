@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import ReplyBox from "./ReplyBox";
 import fetchData from "./utils/fetchData";
-import { redditURL } from "./utils/constants";
+import { redditURL } from "./utils/variables";
 
 function Post() {
   let location = useLocation();
   let permalink = location.state.title.permalink;
+  let title, author, subreddit, comments;
 
   //States
   const [thread, setThread] = useState([]);
@@ -17,6 +18,11 @@ function Post() {
     setThread(myJson);
   });
 
+  //Change the title of the page
+  useEffect(() => {
+    document.title = "Reddit Clone - Single Post";
+  }, []);
+
   //Toggle replies
   const toggleReplyBox = (id) => {
     if (singleReply === id) {
@@ -26,7 +32,10 @@ function Post() {
     }
   };
 
-  // const { title, author, subreddit } = thread[0].data.children[0].data;
+  if (thread.length > 0) {
+    ({ title, author, subreddit } = thread[0].data.children[0].data);
+    comments = thread[1].data.children;
+  }
 
   //Return App
   return (
@@ -38,7 +47,7 @@ function Post() {
             {author} in {subreddit}
           </p>
           <div>
-            {thread[1].data.children.map((comment) => {
+            {comments.map((comment) => {
               const { id, author, body, replies, name } = comment.data;
               return (
                 <div key={id}>
@@ -60,7 +69,9 @@ function Post() {
               );
             })}
           </div>
-          <NavLink to="/">Home</NavLink>
+          <NavLink to="/">
+            <button>Home</button>
+          </NavLink>
         </div>
       )}
     </div>

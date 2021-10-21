@@ -15,24 +15,6 @@ h1 {
   font-weight: 400;
 }
 
-a {
-  font-style: italic;
-  color: #1f1c2c;
-  background-color: #928dab;
-  text-decoration: none;
-  padding: 1 3px;
-  border-radius: 2px;
-}
-
-a:hover {
-  background-color: #1f1c2c;
-  color: #928dab;
-}
-
-a:active {
-  border: 1px solid #928dab;
-}
-
 hr {
   width: 80%;
   color: #928dab;
