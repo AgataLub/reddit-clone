@@ -13,12 +13,10 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-// create utils - putting the url together, fetching function, separate file with consts,
 // looks
 // see more/see less button
 // fix empty wrote/said
 // text formatting
-// create keys
 // useEffect
-
-// ? function () vs react extends
+// error following icon from manifest
+//

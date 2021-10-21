@@ -6,7 +6,7 @@ export default function PostList({ posts }) {
       {posts.map((post) => {
         let permalink = post.data.permalink;
         return (
-          <div className="SinglePost" key={post.id}>
+          <div key={post.data.id} className="SinglePost">
             <h1>{post.data.title}</h1>
             <p>
               {post.data.author} in {post.data.subreddit}
