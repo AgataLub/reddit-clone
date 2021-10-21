@@ -12,13 +12,13 @@ function Post() {
   const [thread, setThread] = useState([]);
   const [singleReply, setSingleReply] = useState(null);
 
+  //Fetch data
   fetchData(redditURL, permalink).then((myJson) => {
     setThread(myJson);
   });
 
+  //Toggle replies
   const toggleReplyBox = (id) => {
-    console.log(id);
-
     if (singleReply === id) {
       setSingleReply(null);
     } else {
@@ -26,34 +26,36 @@ function Post() {
     }
   };
 
+  // const { title, author, subreddit } = thread[0].data.children[0].data;
+
   //Return App
   return (
     <div className="MainFeed">
       {thread.length !== 0 && (
         <div className="SinglePost">
-          <h1>{thread[0].data.children[0].data.title}</h1>
+          <h1>{title}</h1>
           <p>
-            {thread[0].data.children[0].data.author} in {thread[0].data.children[0].data.subreddit}
+            {author} in {subreddit}
           </p>
           <div>
-            {console.log(thread[1].data.children)}
             {thread[1].data.children.map((comment) => {
+              const { id, author, body, replies, name } = comment.data;
               return (
-                <div key={comment.data.id}>
+                <div key={id}>
                   <hr />
                   <p>
-                    <b>{comment.data.author}</b> said {comment.data.body}
+                    <b>{author}</b> said {body}
                   </p>
-                  {comment.data.replies && (
+                  {replies && (
                     <button
                       onClick={() => {
-                        toggleReplyBox(comment.data.name);
+                        toggleReplyBox(name);
                       }}
                     >
                       See replies
                     </button>
                   )}
-                  {singleReply === comment.data.name && <ReplyBox replies={comment.data.replies} />}
+                  {singleReply === name && <ReplyBox replies={replies} />}
                 </div>
               );
             })}

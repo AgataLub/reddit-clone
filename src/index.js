@@ -17,6 +17,5 @@ ReactDOM.render(
 // see more/see less button
 // fix empty wrote/said
 // text formatting
-// useEffect
 // error following icon from manifest
 //
