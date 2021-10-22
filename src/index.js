@@ -15,6 +15,7 @@ ReactDOM.render(
 
 // looks
 // see more/see less button
+// utils - toggle replies
 // fix empty wrote/said
 // text formatting
 // error following icon from manifest
