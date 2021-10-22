@@ -36,7 +36,7 @@ function Post() {
     ({ title, author, subreddit } = thread[0].data.children[0].data);
     comments = thread[1].data.children;
   }
-
+  console.log(comments);
   //Return App
   return (
     <div className="MainFeed">
@@ -61,7 +61,7 @@ function Post() {
                         toggleReplyBox(name);
                       }}
                     >
-                      See replies
+                      {singleReply === null ? "See replies" : "Hide replies"}
                     </button>
                   )}
                   {singleReply === name && <ReplyBox replies={replies} />}
