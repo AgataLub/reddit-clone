@@ -14,6 +14,5 @@ ReactDOM.render(
 );
 
 // looks
-// utils - toggle replies
-// fix empty wrote/said
+// fix empty wrote/said --- [[Prototype]]: Array(0) ?
 // text formatting

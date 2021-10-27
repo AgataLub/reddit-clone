@@ -23,20 +23,10 @@ function Post() {
     document.title = "Reddit Clone - Single Post";
   }, []);
 
-  //Toggle replies
-  const toggleReplyBox = (id) => {
-    if (singleReply === id) {
-      setSingleReply(null);
-    } else {
-      setSingleReply(id);
-    }
-  };
-
   if (thread.length > 0) {
     ({ title, author, subreddit } = thread[0].data.children[0].data);
     comments = thread[1].data.children;
   }
-  console.log(comments);
   //Return App
   return (
     <div className="MainFeed">
@@ -48,20 +38,22 @@ function Post() {
           </p>
           <div>
             {comments.map((comment) => {
+              console.log(comment);
               const { id, author, body, replies, name } = comment.data;
               return (
                 <div key={id}>
                   <hr />
                   <p>
-                    <b>{author}</b> said {body}
+                    <b>{author}</b>
                   </p>
+                  <p>{body}</p>
                   {replies && (
                     <button
                       onClick={() => {
-                        toggleReplyBox(name);
+                        setSingleReply(singleReply == null ? name : null);
                       }}
                     >
-                      {singleReply === null ? "See replies" : "Hide replies"}
+                      {singleReply === name ? "Hide replies" : "See replies"}
                     </button>
                   )}
                   {singleReply === name && <ReplyBox replies={replies} />}
