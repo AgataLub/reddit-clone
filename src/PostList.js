@@ -4,12 +4,12 @@ export default function PostList({ posts }) {
   return (
     <div className="MainFeed">
       {posts.map((post) => {
-        let permalink = post.data.permalink;
+        const { title, author, subreddit, permalink, id } = post.data;
         return (
-          <div className="SinglePost" key={post.id}>
-            <h1>{post.data.title}</h1>
+          <div key={id} className="SinglePost">
+            <h1>{title}</h1>
             <p>
-              {post.data.author} in {post.data.subreddit}
+              {author} in {subreddit}
             </p>
             <p>
               <NavLink
@@ -18,7 +18,7 @@ export default function PostList({ posts }) {
                   state: { title: { permalink } },
                 }}
               >
-                See the comments...
+                <button>See the comments...</button>
               </NavLink>
             </p>
           </div>

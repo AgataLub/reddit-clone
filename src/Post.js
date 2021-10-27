@@ -1,79 +1,69 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import ReplyBox from "./ReplyBox";
+import fetchData from "./utils/fetchData";
+import { redditURL } from "./utils/variables";
 
 function Post() {
   let location = useLocation();
   let permalink = location.state.title.permalink;
+  let title, author, subreddit, comments;
 
   //States
   const [thread, setThread] = useState([]);
-  // const [comments, setComments] = useState(false);
   const [singleReply, setSingleReply] = useState(null);
 
-  //useEffect?
-  //Fetching data
-  async function getData() {
-    const response = await fetch(`https://www.reddit.com${permalink}.json`, {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        Accept: "application/json",
-      },
-    });
-    const myJson = await response.json();
-    return myJson;
-  }
-  getData().then((myJson) => {
-    console.log(myJson);
+  //Fetch data
+  fetchData(redditURL, permalink).then((myJson) => {
     setThread(myJson);
   });
 
-  const toggleReplyBox = (id) => {
-    console.log(id);
+  //Change the title of the page
+  useEffect(() => {
+    document.title = "Reddit Clone - Single Post";
+  }, []);
 
-    if (singleReply === id) {
-      setSingleReply(null);
-    } else {
-      setSingleReply(id);
-    }
-
-    // setComments((wasComment) => !wasComment);
-  };
-
+  if (thread.length > 0) {
+    ({ title, author, subreddit } = thread[0].data.children[0].data);
+    comments = thread[1].data.children;
+  }
   //Return App
   return (
-    <div>
+    <div className="MainFeed">
       {thread.length !== 0 && (
-        <div className="MainFeed">
-          <h1>{thread[0].data.children[0].data.title}</h1>
+        <div className="SinglePost">
+          <h1>{title}</h1>
           <p>
-            {thread[0].data.children[0].data.author} in {thread[0].data.children[0].data.subreddit}
+            {author} in {subreddit}
           </p>
           <div>
-            {console.log(thread[1].data.children)}
-            {thread[1].data.children.map((comment) => {
-              console.log("comment");
-              console.log(comment.data.replies);
+            {comments.map((comment) => {
+              console.log(comment);
+              const { id, author, body, replies, name } = comment.data;
               return (
-                <div>
+                <div key={id}>
+                  <hr />
                   <p>
-                    <b>{comment.data.author}</b> said {comment.data.body}
+                    <b>{author}</b>
                   </p>
-                  {comment.data.replies && (
+                  <p>{body}</p>
+                  {replies && (
                     <button
                       onClick={() => {
-                        toggleReplyBox(comment.data.name);
+                        setSingleReply(singleReply == null ? name : null);
                       }}
                     >
-                      See replies
+                      {singleReply === name ? "Hide replies" : "See replies"}
                     </button>
                   )}
-                  {singleReply === comment.data.name && <ReplyBox replies={comment.data.replies} />}
+                  {singleReply === name && <ReplyBox replies={replies} />}
                 </div>
               );
             })}
           </div>
-          <NavLink to="/">Home</NavLink>
+          <NavLink to="/">
+            <button>Home</button>
+          </NavLink>
         </div>
       )}
     </div>

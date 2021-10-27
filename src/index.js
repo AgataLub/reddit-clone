@@ -13,12 +13,6 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-// create utils - putting the url together, fetching function, separate file with consts,
 // looks
-// see more/see less button
-// fix empty wrote/said
+// fix empty wrote/said --- [[Prototype]]: Array(0) ?
 // text formatting
-// create keys
-// useEffect
-
-// ? function () vs react extends
